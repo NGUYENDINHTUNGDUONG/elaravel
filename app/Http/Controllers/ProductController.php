@@ -32,18 +32,6 @@ class ProductController extends Controller
 
         return view('admin.product.add_product')->with('cate_product', $cate_product)->with('brand_product', $brand_product);
     }
-    public function search_product(Request $request){
-        $keywords = $request ->keywords_submit;
-        $cate_product = Category::where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $brand_product = Brand::where('brand_status', '1')->orderBy('brand_id', 'desc')->get();
-        // $all_product = DB::table('tbl_product')
-        //     ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
-        //     ->join('tbl_brand_product', 'tbl_brand_product.brand_id', '=', 'tbl_product.brand_id')
-        //     ->orderBy('tbl_product.product_id')->get();
-        $search_product = Product::where('product_name', 'like','%'.$keywords.'%')->orderBy('product_id', 'desc')->get();
-
-        return view('admin.product.all_product')->with('category', $cate_product)->with('brand', $brand_product)->with('search_product', $search_product);
-    }
     public function all_product()
     {
         $this->AuthLogin();
@@ -59,7 +47,6 @@ class ProductController extends Controller
     public function save_product(Request $request)
     {
         $this->AuthLogin();
-
         $data = $request->all();
         $product = new Product();
         $product->product_name = $data['product_name'];
@@ -71,10 +58,11 @@ class ProductController extends Controller
         $product->product_status = $data['product_status'];
         $product->product_image = $data['product_image'];
         $get_image = $request->file('product_image');
+        dd($request->file('product_image'));
 
         if ($get_image) {
             $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.', $get_name_image));//lấy cái tên đuôi cuối cảu ảnh
+            $name_image = current(explode('.', $get_name_image));//ghép lại thành tên trước dấu chấm
             $new_image = $get_name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
             $get_image->move('public/upload/product', $new_image);
             $product->product_image = $new_image;
