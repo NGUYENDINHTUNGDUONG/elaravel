@@ -64,7 +64,7 @@
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<input class="cart_quantity" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}">
+									<input class="cart_quantity" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" disabled>
 								</div>
 							</td>
 							<td class="cart_total">

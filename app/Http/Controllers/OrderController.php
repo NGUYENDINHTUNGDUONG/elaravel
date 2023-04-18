@@ -210,6 +210,7 @@ class OrderController extends Controller
             $order_status = $ord->order_status;
         }
         $customer = Customer::where('customer_id', $customer_id)->first();
+        $shipping = Shipping::where('shipping_id', $shipping_id)->first();
 
         $order_details_product = OrderDetails::with('product')->where('order_code', $order_code)->get();
 

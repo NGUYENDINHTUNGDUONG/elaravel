@@ -33,12 +33,11 @@
             <div class="form-one">
               <form method="POST">
                 @csrf
-                <input type="text" name="shipping_email" class="shipping_email" value="{{$data['customer_email']}}" placeholder="Điền email" disabled>
-                <input type="text" name="shipping_name" class="shipping_name" value="{{$data['customer_name']}}" placeholder="Họ và tên người gửi" disabled>
+                <input type="text" name="shipping_email" class="shipping_email" placeholder="Điền email">
+                <input type="text" name="shipping_name" class="shipping_name" placeholder="Họ và tên người gửi">
                 <input type="text" name="shipping_address" class="shipping_address" placeholder="Địa chỉ gửi hàng">
-                <input type="text" name="shipping_phone" class="shipping_phone" placeholder="Số điện thoại" value="{{$data['customer_phone']}}" disabled>
+                <input type="text" name="shipping_phone" class="shipping_phone" placeholder="Số điện thoại">
                 <textarea name="shipping_notes" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
-
                 @if(Session::get('fee'))
                 <input type="hidden" name="order_fee" class="order_fee" value="{{Session::get('fee')}}">
                 @else
@@ -114,7 +113,7 @@
                     </td>
                     <td class="cart_quantity">
                       <div class="cart_quantity_button">
-                        <input class="cart_quantity" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}">
+                        <input class="cart_quantity" type="number" min="1" max="10" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}">
                       </div>
                     </td>
                     <td class="cart_total">
@@ -124,14 +123,16 @@
                       </p>
                     </td>
                     <td class="cart_delete">
-                      <a class="cart_quantity_delete" href="{{url('/del-product/'.$cart['session_id'])}}"><i class="fa fa-times"></i></a>
+                      <a class="cart_quantity_delete" href="{{url('/delete-cart-product/'.$cart['session_id'])}}">
+                        <i class="fa fa-times"></i>
+                      </a>
                     </td>
                   </tr>
 
                   @endforeach
                   <tr>
                     <td><input type="submit" value="Cập nhật giỏ hàng" name="update_qty" class="check_out btn btn-default btn-sm"></td>
-                    <td><a class="btn btn-default check_out" href="{{url('/del-all-product')}}">Xóa tất cả</a></td>
+                    <td><a class="btn btn-default check_out" href="{{url('/delete-all-product')}}">Xóa tất cả</a></td>
                     <td>
                       @if(Session::get('coupon'))
                       <a class="btn btn-default check_out" href="{{url('/unset-coupon')}}">Xóa mã khuyến mãi</a>

@@ -588,7 +588,6 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.send_order').click(function() {
-				console.log('uygygvygvbybuhbyhg')
 				swal({
 						title: "Xác nhận đơn hàng",
 						text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
@@ -602,7 +601,6 @@
 						closeOnCancel: false
 					},
 					function(isConfirm) {
-						console.log('dqwerqweqwre')
 						if (isConfirm) {
 							var shipping_email = $('.shipping_email').val();
 							var shipping_name = $('.shipping_name').val();
@@ -633,9 +631,9 @@
 								}
 							});
 
-							// window.setTimeout(function() {
-							// 	location.reload();
-							// }, 3000);
+							window.setTimeout(function() {
+								location.reload();
+							}, 3000);
 
 						} else {
 							swal("Đóng", "Đơn hàng chưa được gửi, làm ơn hoàn tất đơn hàng", "error");

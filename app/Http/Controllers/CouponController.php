@@ -21,8 +21,8 @@ class CouponController extends Controller
     public function list_coupon()
     {
         $today = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
-        $coupon = Coupon::orderby('coupon_id', 'DESC')->paginate(2);
-        return view('admin.coupon.list_coupon')->with(compact('coupon','today'));
+        $coupon = Coupon::orderby('coupon_id', 'DESC')->paginate(3);
+        return view('admin.coupon.list_coupon')->with(compact('coupon', 'today'));
     }
     public function add_coupon_code(Request $request)
     {

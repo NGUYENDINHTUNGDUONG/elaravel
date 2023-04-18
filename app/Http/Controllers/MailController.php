@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
+    public function send_mail()
+    {
+        $to_name = "TungDuong";
+        $to_email = "ndtd13102001@gmail.com";
+
+        $data = array("name" => "Mail từ tài khoản khách hàng", "body" => 'mail gửi về vấn đề');
+        Mail::send('pages.send_mail', $data, function ($message) use ($to_name, $to_email) {
+            $message->to($to_email)->subject('Test thử gửi mail');
+            $message->from($to_email, $to_name);
+        });
+        return redirect('/')->with('message' . '');
+    }
     public function send_coupon($start_date, $end_date, $coupon_time, $coupon_condition, $coupon_number, $coupon_code)
     {
         $customer_vip = Customer::where('customer_vip', 1)->get();
@@ -29,7 +41,7 @@ class MailController extends Controller
             'coupon_number' => $coupon_number,
             'coupon_code' => $coupon_code
         );
-        Mail::send('pages.send_mail.send_coupon', ['coupon'=>$coupon], function ($message) use ($title_mail, $data) {
+        Mail::send('pages.send_mail.send_coupon', ['coupon' => $coupon], function ($message) use ($title_mail, $data) {
             $message->to($data['email'])->subject($title_mail);
             $message->from($data['email'], $title_mail);
         });

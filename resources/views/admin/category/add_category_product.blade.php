@@ -35,15 +35,11 @@
                 <option value="1">Hiển thị</option>
               </select>
             </div>
-            <input type="text" name="nhom12">
-            <input type="text" name="gui">
             <button type="submit" name="add_category_product" class="btn btn-info">Thêm danh mục</button>
           </form>
         </div>
-
       </div>
     </section>
-
   </div>
 </div>
 @endsection

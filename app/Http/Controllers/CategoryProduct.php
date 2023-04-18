@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
@@ -27,25 +28,23 @@ class CategoryProduct extends Controller
     public function add_category_product()
     {
         $this->AuthLogin();
-        return view('admin.category.add_category_product');//file chả về view
+        return view('admin.category.add_category_product');
     }
     public function all_category_product()
     {
         $this->AuthLogin();
-        $all_category_product = Category::orderby('category_id', 'ASC')->get();
+        $all_category_product = Category::orderby('category_id', 'ASC')->paginate(3);
         $maneger_category_product = view('admin.category.all_category_product')->with('all_category_product', $all_category_product);
         return view('admin_layout')->with('admin.category.all_category_product', $maneger_category_product);
     }
     public function save_category_product(Request $request)
-    //thêm danh mục sản phẩm
     {
         $this->AuthLogin();
         $data = $request->all();
-        $category = new Category();//tạo mới db
+        $category = new Category();
         $category->category_name = $data['category_product_name'];
         $category->category_desc = $data['category_product_desc'];
         $category->category_status = $data['category_product_status'];
-        //add các dữ liệu theo từng trường
         $category->save();
         Session::put('message', 'Thêm danh mục sản phẩm thành công');
         return Redirect::to('add-category-product');

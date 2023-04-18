@@ -7,11 +7,12 @@ use App\Http\Controllers\BrandProduct;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CustomerController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -26,23 +27,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//frontend
+//FRONTEND
 Route::get('/', [HomeController::class, 'index']); //chỉ vào HomeController vào file index
 Route::get('/trang-chu', [HomeController::class, 'index']); //chỉ vào HomeController vào file index
 Route::post('/search', [HomeController::class, 'search']); //chỉ vào HomeController vào file index
-
 
 //danh mục sản phẩm trang chủ
 Route::get('/danh-muc-san-pham/{category_id}', [CategoryProduct::class, 'show_category_home']);
 Route::get('/loai-san-pham/{brand_id}', [BrandProduct::class, 'show_brand_home']);
 Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
 
-//backend
-//Send Mail
-Route::get('/send-mail', [HomeController::class, 'send_mail']);
-//login facebook
-Route::get('/login-facebook', [LoginController::class, 'login_facebook']);
-Route::get('/admin/callback', [LoginController::class, 'callback_facebook']);
+
+//BACKEND
+//Admin
 Route::get('/admin', [AdminController::class, 'index']); //chỉ vào AdminController vào file index
 Route::get('/dashboard', [AdminController::class, 'show_dashboard']); //chỉ vào AdminController vào file index
 Route::get('/logout', [AdminController::class, 'logout']);
@@ -55,10 +52,6 @@ Route::get('/delete-category-product/{category_product_id}', [CategoryProduct::c
 Route::get('/all-category-product', [CategoryProduct::class, 'all_category_product']);
 Route::get('/unactive-category-product/{category_product_id}', [CategoryProduct::class, 'unactive_category_product']);
 Route::get('/active-category-product/{category_product_id}', [CategoryProduct::class, 'active_category_product']);
-
-//Route::get('/active-category-product/{category_product_id}', [CategoryProduct::class, 'active_category_product'])->name('active_category');
-//Route::get('/unactive-category-product/{category_product_id}', [CategoryProduct::class, 'unactive_category_product'])->name('unactive_category');
-
 Route::post('/save-category-product', [CategoryProduct::class, 'save_category_product']);
 Route::post('/update-category-product/{category_product_id}', [CategoryProduct::class, 'update_category_product']);
 
@@ -77,12 +70,14 @@ Route::post('/update-brand-product/{brand_product_id}', [BrandProduct::class, 'u
 Route::post('/search-product', [ProductController::class, 'search_product']);
 Route::get('/add-product', [ProductController::class, 'add_product']);
 Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product']);
+Route::post('/update-product/{product_id}', [ProductController::class, 'update_product']);
+Route::post('/save-product', [ProductController::class, 'save_product']);
 Route::get('/delete-product/{product_id}', [ProductController::class, 'delete_product']);
 Route::get('/all-product', [ProductController::class, 'all_product']);
 Route::get('/unactive-product/{product_id}', [ProductController::class, 'unactive_product']);
 Route::get('/active-product/{product_id}', [ProductController::class, 'active_product']);
-Route::post('/save-product', [ProductController::class, 'save_product']);
-Route::post('/update-product/{product_id}', [ProductController::class, 'update_product']);
+
+
 
 //Check coupon
 Route::post('/check-coupon', [CartController::class, 'check_coupon']);
@@ -102,15 +97,7 @@ Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
 
 
 //Checkout Controller
-Route::get('/delete-fee', [CheckoutController::class, 'delete_fee']);
-Route::get('/login-checkout', [CheckoutController::class, 'login_checkout']);
-Route::get('/logout-checkout', [CheckoutController::class, 'logout_checkout']);
-Route::post('/add-customer', [CheckoutController::class, 'add_customer']);
-Route::post('/login-customer', [CheckoutController::class, 'login_customer']);
 Route::get('/show-checkout', [CheckoutController::class, 'show_checkout']);
-Route::post('/save-checkout-customer', [CheckoutController::class, 'save_checkout_customer']);
-Route::post('/select-delivery-home', [CheckoutController::class, 'select_delivery_home']);
-Route::post('/calculate-fee', [CheckoutController::class, 'calculate_fee']);
 Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
 
 //Manage_order
@@ -132,9 +119,16 @@ Route::post('/update-delivery', [DeliveryController::class, 'update_delivery']);
 
 
 //Send Mail
+Route::get('/send-mail', [MailController::class, 'send_mail']);
 Route::get('/send-coupon/{start_date}/{end_date}/{coupon_time}/{coupon_condition}/{coupon_number}/{coupon_code}', [MailController::class, 'send_coupon']);
 Route::get('/mail-example', [MailController::class, 'mail_example']);
 Route::get('/forget-password', [MailController::class, 'forget_password']);
 Route::get('/update-new-pass', [MailController::class, 'update_new_pass']);
 Route::post('/reset-new-pass', [MailController::class, 'reset_new_pass']);
 Route::post('/recover-pass', [MailController::class, 'recover_pass']);
+
+//Customer
+Route::post('/add-customer', [CustomerController::class, 'add_customer']);
+Route::post('/login-customer', [CustomerController::class, 'login_customer']);
+Route::get('/login-checkout', [CustomerController::class, 'login_checkout']);
+Route::get('/logout-checkout', [CustomerController::class, 'logout_checkout']);
