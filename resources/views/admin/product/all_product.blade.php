@@ -53,7 +53,6 @@
             <th>Danh mục</th>
             <th>Loại đồ uống</th>
             <th>Hiển thị</th>
-            <th>Hiển thị</th>
             <th style="width:30px;"></th>
           </tr>
         </thead>
@@ -79,8 +78,6 @@
                 <?php
                 };
                 ?>
-
-
               </span>
             </td>
             <td>

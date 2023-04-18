@@ -33,10 +33,10 @@
             <div class="form-one">
               <form method="POST">
                 @csrf
-                <input type="text" name="shipping_email" class="shipping_email" placeholder="Điền email">
-                <input type="text" name="shipping_name" class="shipping_name" placeholder="Họ và tên người gửi">
-                <input type="text" name="shipping_address" class="shipping_address" placeholder="Địa chỉ gửi hàng">
-                <input type="text" name="shipping_phone" class="shipping_phone" placeholder="Số điện thoại">
+                <input type="text" name="shipping_email" class="shipping_email" value="{{$data['customer_email']}}" placeholder="Điền email" disabled>
+                <input type="text" name="shipping_name" value="{{$data['customer_name']}}" class="shipping_name" placeholder="Họ và tên người gửi">
+                <input type="text" name="shipping_address"  class="shipping_address" placeholder="Địa chỉ gửi hàng">
+                <input type="text" value="{{$data['customer_phone']}}" name="shipping_phone" class="shipping_phone" placeholder="Số điện thoại">
                 <textarea name="shipping_notes" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
                 @if(Session::get('fee'))
                 <input type="hidden" name="order_fee" class="order_fee" value="{{Session::get('fee')}}">

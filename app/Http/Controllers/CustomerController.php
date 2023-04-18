@@ -18,6 +18,15 @@ use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
+    public function AuthLogin()
+    {
+        $admin_id = Session::get('admin_id');
+        if ($admin_id) {
+            return Redirect::to('dashboard');
+        } else {
+            return Redirect::to('admin')->send();
+        }
+    }
     public function add_customer(Request $request)
     {
         $data = array();
@@ -59,5 +68,26 @@ class CustomerController extends Controller
         session::forget('coupon');
         session::forget('cart');
         return redirect::to('/login-checkout');
+    }
+    public function all_customer()
+    {
+        $this->AuthLogin();
+        $all_customer = Customer::orderby('customer_id', 'ASC')->paginate(10);
+        $maneger_customer = view('admin.customer.all_customer')->with('all_customer', $all_customer);
+        return view('admin_layout')->with('admin.customer.all_customer', $maneger_customer);
+    }
+    public function active_vip($customer_id)
+    {
+        $this->AuthLogin();
+        Customer::where('customer_id', $customer_id)->update(['customer_vip' => null]);
+        Session::put('message', 'Không kích hoạt VIP thành công');
+        return Redirect::to('all-customer');
+    }
+    public function unactive_vip($customer_id)
+    {
+        $this->AuthLogin();
+        Customer::where('customer_id', $customer_id)->update(['customer_vip' => 1]);
+        Session::put('message', 'Kích hoạt VIP thành công');
+        return Redirect::to('all-customer');
     }
 }

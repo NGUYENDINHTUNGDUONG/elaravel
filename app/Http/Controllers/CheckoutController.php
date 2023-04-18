@@ -31,11 +31,11 @@ class CheckoutController extends Controller
         $shipping->shipping_email = $data['shipping_email'];
         $shipping->shipping_phone = $data['shipping_phone'];
         $shipping->shipping_address = $data['shipping_address'];
-        $shipping->shipping_notes = $data['shipping_notes'];
+        $shipping->shipping_notes = (int) $data['shipping_notes'];
         $shipping->shipping_method = $data['shipping_method'];
         $shipping->save();
         $shipping_id = $shipping->shipping_id;
-
+        // dd($shipping);
         $checkout_code = substr(md5(microtime()), rand(0, 26), 5);
 
 

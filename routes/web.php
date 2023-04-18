@@ -132,3 +132,6 @@ Route::post('/add-customer', [CustomerController::class, 'add_customer']);
 Route::post('/login-customer', [CustomerController::class, 'login_customer']);
 Route::get('/login-checkout', [CustomerController::class, 'login_checkout']);
 Route::get('/logout-checkout', [CustomerController::class, 'logout_checkout']);
+Route::get('/all-customer', [CustomerController::class, 'all_customer']);
+Route::get('/unactive-vip/{customer_id}', [CustomerController::class, 'unactive_vip']);
+Route::get('/active-vip/{customer_id}', [CustomerController::class, 'active_vip']);
