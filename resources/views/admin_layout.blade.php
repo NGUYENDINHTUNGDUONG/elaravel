@@ -202,48 +202,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="{{asset('backend/js/jquery.slimscroll.js')}}"></script>
 	<script src="{{asset('backend/js/jquery.nicescroll.js')}}"></script>
 	<script src="{{asset('backend/ckeditor5-build-classic/ckeditor.js')}}"></script>
-	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-	<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 	<script>
 		ClassicEditor
-			.create(document.querySelector('#ckeditor1'))
-		ClassicEditor
-			.create(document.querySelector('#ckeditor2'))
+			.create(document.querySelector('#editor1'))
 	</script>
-	<!-- morris JavaScript -->
+		<script>
+		ClassicEditor
+			.create(document.querySelector('#editor2'))
+	</script>
 
-	<!-- calendar -->
 	<script type="text/javascript" src="{{asset('backend/js/monthly.js')}}"></script>
-	<!-- <script type="text/javascript">
-		$('.update_quantity_order').click(function() {
-			var order_product_id = $(this).data('product_id');
-			var order_qty = $('.order_qty_' + order_product_id).val();
-			var order_code = $('.order_code').val();
-			var _token = $('input[name="_token"]').val();
-			// alert(order_product_id);
-			// alert(order_qty);
-			// alert(order_code);
-			$.ajax({
-				url: '{{url("/update-qty")}}',
-
-				method: 'POST',
-
-				data: {
-					_token: _token,
-					order_product_id: order_product_id,
-					order_qty: order_qty,
-					order_code: order_code
-				},
-				// dataType:"JSON",
-				success: function(data) {
-
-					alert('Cập nhật số lượng thành công');
-					location.reload();
-				}
-			});
-
-		});
-	</script> -->
 	<script type="text/javascript">
 		$('.order_details').change(function() {
 			var order_status = $(this).val();
@@ -259,21 +229,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$("input[name='order_product_id']").each(function() {
 				order_product_id.push($(this).val());
 			});
-				$.ajax({
-					url: "{{url('/update-order-qty')}}",
-					method: 'POST',
-					data: {
-						_token: _token,
-						order_status: order_status,
-						order_id: order_id,
-						quantity: quantity,
-						order_product_id: order_product_id
-					},
-					success: function(data) {
-						alert('Thay đổi tình trạng đơn hàng thành công');
-						location.reload();
-					}
-				});
+			$.ajax({
+				url: "{{url('/update-order-qty')}}",
+				method: 'POST',
+				data: {
+					_token: _token,
+					order_status: order_status,
+					order_id: order_id,
+					quantity: quantity,
+					order_product_id: order_product_id
+				},
+				success: function(data) {
+					alert('Thay đổi tình trạng đơn hàng thành công');
+					location.reload();
+				}
+			});
 
 
 
